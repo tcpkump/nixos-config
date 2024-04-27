@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, lib, home-manager, nixvim, ... }:
 
 let
   user = "garrettleber";
@@ -44,6 +44,7 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    extraSpecialArgs = { inherit nixvim; };
     users.${user} = { pkgs, config, lib, ... }:{
       home = {
         enableNixpkgsReleaseCheck = false;
@@ -51,11 +52,13 @@ in
         file = lib.mkMerge [
           sharedFiles
           additionalFiles
-          # { "emacs-launcher.command".source = myEmacsLauncher; }
         ];
         stateVersion = "23.11";
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
+      imports = [
+        nixvim.homeManagerModules.nixvim
+        ../shared/home-manager.nix
+      ];
 
       # Marked broken Oct 20, 2022 check later to remove this
       # https://github.com/nix-community/home-manager/issues/3344
