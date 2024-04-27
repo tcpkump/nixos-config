@@ -114,7 +114,13 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${user} = import ./modules/nixos/home-manager.nix;
+              extraSpecialArgs = { inherit nixvim; };
+              users.${user} = {
+                imports = [
+                  nixvim.homeManagerModules.nixvim
+                  ./modules/nixos/home-manager.nix
+                ];
+              };
             };
           }
           ./hosts/nixos

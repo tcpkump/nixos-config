@@ -40,6 +40,9 @@ let name = "Garrett Leber";
       settings = {
         shell.program = "zsh";
         font.size = 14;
+        font = {
+          normal.family = "FiraCode Nerd Font Mono";
+        };
         window.padding = {
           x = 4;
           y = 4;
