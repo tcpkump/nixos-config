@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let user = "garrettleber"; in
 
@@ -35,9 +35,9 @@ let user = "garrettleber"; in
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
-    # emacs-unstable
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  # environment.systemPackages = with pkgs; [
+  #   emacs-unstable
+  # ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
   fonts.fontDir.enable = true;

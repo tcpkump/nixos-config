@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nixvim, ... }:
+{ config, pkgs, nixvim, ... }:
 
 let
   user = "garrettleber";
@@ -45,7 +45,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit nixvim; };
-    users.${user} = { pkgs, config, lib, ... }:{
+    users.${user} = { pkgs, lib, ... }:{
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
