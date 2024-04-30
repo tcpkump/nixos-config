@@ -87,7 +87,7 @@ let user = "garrettleber"; in
 
       trackpad = {
         Clicking = true;
-        TrackpadThreeFingerDrag = true;
+        TrackpadThreeFingerDrag = false;
       };
     };
 

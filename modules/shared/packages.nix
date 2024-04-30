@@ -6,6 +6,9 @@ with pkgs; [
   terraform-docs
   kubectl
 
+  podman
+  podman-compose
+
   tmux-sessionizer
 
   # archives

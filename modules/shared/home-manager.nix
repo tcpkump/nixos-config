@@ -8,25 +8,83 @@ let name = "Garrett Leber";
     ./nixvim/default.nix
   ];
 
+  services.syncthing = {
+    enable = true;
+  };
+
   programs = {
     ssh = {
       enable = true;
+      extraConfig = ''
+        Host *
+            AddressFamily inet
 
-      extraConfig = lib.mkMerge [
-        ''
-          Host github.com
-            Hostname github.com
-            IdentitiesOnly yes
-        ''
-        (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-          ''
-            IdentityFile /home/${user}/.ssh/id_github
-          '')
-        (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-          ''
-            IdentityFile /Users/${user}/.ssh/id_github
-          '')
-      ];
+        Host bastion
+            User garrett_leber
+            HostName bastion1.prod.dwopenvpn.net
+            ForwardAgent yes
+            AddKeysToAgent yes
+
+        Host ansiblejumphost.*.dwopenvpn.net
+            User garrett_leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+            ProxyJump bastion
+
+        Host *.dwopenvpn.net
+            User brian
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+            ProxyJump bastion
+
+        Host *.ec.devopenvpn.net
+            User root
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+
+        # BEGIN DW AWS Ansible-managed hosts
+
+        Host awscosts nagios2
+            HostName %h.prod.aws.openvpn.in
+            User garrett_leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+            ProxyJump bastion
+
+        Host awscosts.lab
+            HostName %h.aws.openvpn.in
+            User garrett_leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+            ProxyJump bastion
+
+        Host airflow.shared-dev
+            HostName %h.aws.openvpn.in
+            User garrett_leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+            ProxyJump bastion
+
+        # END DW AWS Ansible-managed hosts
+
+        Host *.openvpn.in
+            User garrett.leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+
+        Host *.devopenvpn.in
+            User garrett.leber
+            ForwardAgent yes
+            AddKeysToAgent yes
+            StrictHostKeyChecking no
+      '';
     };
 
     git = {
@@ -34,6 +92,8 @@ let name = "Garrett Leber";
       userName = "Garrett Leber";
       userEmail = "lebergarrett@gmail.com";
     };
+
+    awscli.enable = true;
 
     alacritty = {
       enable = true;
@@ -43,9 +103,12 @@ let name = "Garrett Leber";
         font = {
           normal.family = "FiraCode Nerd Font Mono";
         };
-        window.padding = {
-          x = 4;
-          y = 4;
+        window = {
+          padding = {
+            x = 4;
+            y = 4;
+          };
+          option_as_alt = "OnlyLeft";
         };
       };
     };
@@ -96,7 +159,7 @@ let name = "Garrett Leber";
       };
 
       envExtra = ''
-        export ZSH_TMUX_AUTOSTART=true
+        # export ZSH_TMUX_AUTOSTART=true
       '';
 
       history.size = 10000;
@@ -106,7 +169,7 @@ let name = "Garrett Leber";
         enable = true;
         plugins = [
           "aliases"
-          "git" 
+          "git"
           "colorize"
           "extract"
           "tmux"

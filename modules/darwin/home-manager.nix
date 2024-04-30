@@ -70,8 +70,10 @@ in
   local.dock.enable = true;
   local.dock.entries = [
     { path = "/Applications/Safari.app/"; }
+    { path = "/Applications/Firefox.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "/Applications/Zed.app/"; }
     # {
     #   path = toString myEmacsLauncher;
     #   section = "others";

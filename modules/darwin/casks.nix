@@ -3,6 +3,7 @@ _:
 [
   # Development Tools
   "homebrew/cask/docker"
+  "zed"
 
   # Communication Tools
   "discord"
@@ -11,4 +12,8 @@ _:
 
   # Browsers
   "google-chrome"
+  "firefox"
+
+  # Productivity Tools
+  "unnaturalscrollwheels"
 ]

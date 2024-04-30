@@ -8,8 +8,6 @@
     ./motion/harpoon.nix
     ./motion/surround.nix
 
-    ./snippets/luasnip.nix
-
     ./colorscheme.nix
     ./git.nix
     ./helm.nix
@@ -23,6 +21,7 @@
     ./tmux-navigator.nix
     ./treesitter.nix
     ./trouble.nix
+    ./welcome.nix
     ./which-key.nix
   ];
 
