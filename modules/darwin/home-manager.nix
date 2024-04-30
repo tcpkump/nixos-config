@@ -74,20 +74,6 @@ in
     { path = "/Applications/Slack.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Zed.app/"; }
-    # {
-    #   path = toString myEmacsLauncher;
-    #   section = "others";
-    # }
-    {
-      path = "${config.users.users.${user}.home}/.local/share/";
-      section = "others";
-      options = "--sort name --view grid --display folder";
-    }
-    {
-      path = "${config.users.users.${user}.home}/.local/share/downloads";
-      section = "others";
-      options = "--sort name --view grid --display stack";
-    }
   ];
 
 }
