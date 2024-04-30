@@ -5,7 +5,7 @@
 
     {
       key = "<leader>e";
-      action = "<cmd>Neotree toggle<CR>";
+      action = "<cmd>Neotree toggle filesystem reveal left<CR>";
       mode = "n";
     }
 

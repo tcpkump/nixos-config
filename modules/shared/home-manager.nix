@@ -2,7 +2,7 @@
 
 let name = "Garrett Leber";
     user = "garrettleber";
-    email = "lebergarrett@gmail.com"; in
+    email = "garrett.leber@openvpn.net"; in
 {
   imports = [
     ./nixvim/default.nix
@@ -31,6 +31,7 @@ let name = "Garrett Leber";
             AddKeysToAgent yes
             StrictHostKeyChecking no
             ProxyJump bastion
+            SetEnv LC_ALL="C.UTF-8"
 
         Host *.dwopenvpn.net
             User brian
@@ -90,12 +91,18 @@ let name = "Garrett Leber";
     git = {
       enable = true;
       userName = "Garrett Leber";
-      userEmail = "lebergarrett@gmail.com";
+      userEmail = "garrett.leber@openvpn.net";
       lfs.enable = true;
       difftastic.enable = true;
     };
 
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     awscli.enable = true;
+    go.enable = true;
 
     alacritty = {
       enable = true;
