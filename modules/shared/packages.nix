@@ -2,6 +2,7 @@
 
 with pkgs; [
   python3
+  pre-commit
   terraform
   terraform-docs
   kubectl

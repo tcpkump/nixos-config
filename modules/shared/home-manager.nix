@@ -91,6 +91,8 @@ let name = "Garrett Leber";
       enable = true;
       userName = "Garrett Leber";
       userEmail = "lebergarrett@gmail.com";
+      lfs.enable = true;
+      difftastic.enable = true;
     };
 
     awscli.enable = true;
