@@ -23,6 +23,7 @@
     ./trouble.nix
     ./welcome.nix
     ./which-key.nix
+    ./wiki.nix
   ];
 
   programs.nixvim.enable = true;

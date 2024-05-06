@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }:
 
-let name = "Garrett Leber";
+let
+    name = "Garrett Leber";
     user = "garrettleber";
-    email = "garrett.leber@openvpn.net"; in
-{
+    email = "garrett.leber@openvpn.net";
+    inherit (lib.hm) dag;
+in {
   imports = [
     ./nixvim/default.nix
   ];
@@ -15,77 +17,63 @@ let name = "Garrett Leber";
   programs = {
     ssh = {
       enable = true;
-      extraConfig = ''
-        Host *
-            AddressFamily inet
+      addKeysToAgent = "yes";
+      matchBlocks = {
+        "bastion" = dag.entryBefore ["*.dwopenvpn.net"] {
+          hostname = "bastion1.prod.dwopenvpn.net";
+          user = "garrett_leber";
+          forwardAgent = true;
+        };
+        "ansiblejumphost.*.dwopenvpn.net" = dag.entryBefore ["*.dwopenvpn.net"] {
+          user = "garrett_leber";
+          forwardAgent = true;
+          proxyJump = "bastion";
+        };
+        "*.dwopenvpn.net" = {
+          user = "brian";
+          forwardAgent = true;
+          proxyJump = "bastion";
+        };
 
-        Host bastion
-            User garrett_leber
-            HostName bastion1.prod.dwopenvpn.net
-            ForwardAgent yes
-            AddKeysToAgent yes
+        "*.ec.devopenvpn.net" = {
+          user = "root";
+          forwardAgent = true;
+        };
 
-        Host ansiblejumphost.*.dwopenvpn.net
-            User garrett_leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            ProxyJump bastion
-            SetEnv LC_ALL="C.UTF-8"
+        "awscosts nagios2" = dag.entryBefore ["*.openvpn.in"] {
+          hostname = "%h.prod.aws.openvpn.in";
+          user = "garrett_leber";
+          forwardAgent = true;
+          proxyJump = "bastion";
+        };
+        "awscosts.lab" = dag.entryBefore ["*.openvpn.in"] {
+          hostname = "%h.aws.openvpn.in";
+          user = "garrett_leber";
+          forwardAgent = true;
+          proxyJump = "bastion";
+        };
+        "airflow.shared-dev" = dag.entryBefore ["*.openvpn.in"] {
+          hostname = "%h.aws.openvpn.in";
+          user = "garrett_leber";
+          forwardAgent = true;
+          proxyJump = "bastion";
+        };
+        "*.openvpn.in" = {
+          user = "garrett.leber";
+          forwardAgent = true;
+        };
 
-        Host *.dwopenvpn.net
-            User brian
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            ProxyJump bastion
+        "*.devopenvpn.in" = {
+          user = "garrett.leber";
+          forwardAgent = true;
+        };
 
-        Host *.ec.devopenvpn.net
-            User root
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-
-        # BEGIN DW AWS Ansible-managed hosts
-
-        Host awscosts nagios2
-            HostName %h.prod.aws.openvpn.in
-            User garrett_leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            ProxyJump bastion
-
-        Host awscosts.lab
-            HostName %h.aws.openvpn.in
-            User garrett_leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            ProxyJump bastion
-
-        Host airflow.shared-dev
-            HostName %h.aws.openvpn.in
-            User garrett_leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-            ProxyJump bastion
-
-        # END DW AWS Ansible-managed hosts
-
-        Host *.openvpn.in
-            User garrett.leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-
-        Host *.devopenvpn.in
-            User garrett.leber
-            ForwardAgent yes
-            AddKeysToAgent yes
-            StrictHostKeyChecking no
-      '';
+        "*.imkumpy.in" = {
+          user = "lab";
+          identityFile = "~/.ssh/mbp_personal";
+          forwardAgent = true;
+        };
+      };
     };
 
     git = {
@@ -168,7 +156,9 @@ let name = "Garrett Leber";
       };
 
       envExtra = ''
-        # export ZSH_TMUX_AUTOSTART=true
+        export ZSH_TMUX_AUTOSTART=true
+        export LANG=en_US.UTF-8
+        unset LC_ALL
       '';
 
       history.size = 10000;

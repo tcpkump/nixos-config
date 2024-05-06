@@ -7,6 +7,7 @@ with pkgs; [
   terraform-docs
   kubectl
   google-cloud-sdk
+  ansible
 
   podman
   podman-compose
