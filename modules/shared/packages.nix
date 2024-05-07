@@ -9,6 +9,9 @@ with pkgs; [
   google-cloud-sdk
   ansible
 
+  saml2aws
+  k9s
+
   podman
   podman-compose
 

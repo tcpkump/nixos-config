@@ -137,7 +137,7 @@ in {
         "lh" = "ls -ld .?* --color=auto";
 
         "tf" = "terraform";
-        "tfi" = "terraform init";
+        "tfi" = "terraform init -upgrade";
         "tfp" = "terraform plan";
         "tfa" = "terraform apply";
         "tfd" = "terraform destroy";
@@ -148,11 +148,15 @@ in {
         "endless" = "less +G";
         "tailf" = "tail -f";
 
-        "tx" = "tmuxinator";
-        "txs" = "tmuxinator start";
-        "txo" = "tmuxinator open";
-        "txn" = "tmuxinator new";
-        "txl" = "tmuxinator list --newline";
+        "awslab" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::817264447024:role/sso-lab-admin";
+        "awsprod" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::444663524611:role/sso-prod-admin";
+        "awssharedprod" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::543714519113:role/sso-shared-prod-admin";
+        "awsshareddev" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::497854349903:role/sso-shared-dev-admin";
+        "awssuat" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::636898119407:role/sso-uat-admin";
+
+        "eks-dev-web" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::817264447024:role/sso-lab-admin && aws eks update-kubeconfig --region us-west-1 --name us-west-1-dev-saas";
+        "eks-uat-products" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws::iam:636898119407:role/sso-uat-admin && aws eks update-kubeconfig --region us-west-1 --name us-west-1-uat-products";
+        "eks-prod-web" = "saml2aws login --force --skip-prompt --session-duration=28800 --role arn:aws:iam::444663524611:role/sso-prod-admin && aws eks update-kubeconfig --region us-west-1 --name us-west-1-prod-web";
       };
 
       envExtra = ''
