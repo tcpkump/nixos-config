@@ -262,12 +262,12 @@ let user = "garrettleber"; in
         "docker"
       ];
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = keys;
+      # openssh.authorizedKeys.keys = keys;
     };
 
-    root = {
-      openssh.authorizedKeys.keys = keys;
-    };
+    # root = {
+    #   openssh.authorizedKeys.keys = keys;
+    # };
   };
 
   # Don't require password for users in `wheel` group for these commands
