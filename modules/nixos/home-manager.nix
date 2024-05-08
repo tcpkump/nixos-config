@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixvim, ... }:
 
 let
   user = "garrettleber";
   xdg_configHome  = "/home/${user}/.config";
-  shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib; };
+  # shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib; };
   shared-files = import ../shared/files.nix { inherit config pkgs; };
 
   polybar-user_modules = builtins.readFile (pkgs.substituteAll {
@@ -114,6 +114,11 @@ in
     };
   };
 
-  programs = shared-programs // {};
+  # programs = shared-programs // {};
+
+  imports = [
+    nixvim.homeManagerModules.nixvim
+    ../shared/home-manager.nix
+  ];
 
 }
