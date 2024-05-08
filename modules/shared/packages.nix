@@ -17,6 +17,10 @@ with pkgs; [
 
   tmux-sessionizer
 
+  # wayland screenshots
+  grim
+  slurp
+
   # archives
   zip
   unzip

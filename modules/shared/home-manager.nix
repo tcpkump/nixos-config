@@ -73,6 +73,10 @@ in {
           identityFile = "~/.ssh/mbp_personal";
           forwardAgent = true;
         };
+
+        "*.github.com" = {
+          identityFile = "~/.ssh/mbp_personal";
+        };
       };
     };
 
