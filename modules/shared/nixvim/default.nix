@@ -17,6 +17,7 @@
     ./neo-tree.nix
     ./none-ls.nix
     ./options.nix
+    ./python-venv.nix
     ./telescope.nix
     ./tmux-navigator.nix
     ./treesitter.nix

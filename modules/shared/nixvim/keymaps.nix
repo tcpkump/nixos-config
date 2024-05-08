@@ -22,6 +22,12 @@
     }
 
     {
+      key = "gr";
+      action = "<cmd>Telescope lsp_references<CR>";
+      mode = "n";
+    }
+
+    {
       key = "p";
       action = "\"_dP";
       mode = "v";

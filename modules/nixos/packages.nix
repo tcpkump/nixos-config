@@ -17,7 +17,6 @@ shared-packages ++ [
   # Media and design tools
   vlc
   fontconfig
-  font-manager
 
   # Productivity tools
   bc # old school calculator
