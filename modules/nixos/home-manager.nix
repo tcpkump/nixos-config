@@ -117,7 +117,6 @@ in
   # programs = shared-programs // {};
 
   imports = [
-    nixvim.homeManagerModules.nixvim
     ../shared/home-manager.nix
   ];
 
