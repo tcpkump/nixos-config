@@ -3,7 +3,7 @@
 with pkgs; [
   python3
   pre-commit
-  terraform
+  tenv
   terraform-docs
   kubectl
   google-cloud-sdk
