@@ -26,6 +26,42 @@ in
   };
 
   # programs = shared-programs // {};
+  programs.zsh.initExtra = ''
+    vpn () {
+        local cmd=$1
+        local service_name=$2
 
+        # Function to list VPN services
+        list_vpn_services () {
+            systemctl list-units --type=service --all | grep -o 'openvpn-[^ ]*.service'
+        }
+
+        case $cmd in
+            list)
+                echo "Available VPN services:"
+                list_vpn_services
+                ;;
+            connect)
+                if ! systemctl list-units --type=service --all | grep -q "$service_name"; then
+                    echo "Unknown VPN service: $service_name"
+                    return 1
+                fi
+                echo "Connecting to $service_name..."
+                sudo systemctl stop 'openvpn-*.service'
+                sudo systemctl start "$service_name"
+                ;;
+            disconnect)
+                echo "Disconnecting all VPN services..."
+                sudo systemctl stop 'openvpn-*.service'
+                ;;
+            *)
+                echo "Unknown command: $cmd"
+                echo "Available commands: list, connect, disconnect"
+                return 1
+                ;;
+        esac
+    }
+''
+;
 
 }

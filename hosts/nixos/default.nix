@@ -114,6 +114,9 @@ let user = "garrettleber"; in
     pulse.enable = true;
   };
 
+  # yubikey
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.pcscd.enable = true;
 
   # Add docker daemon
   virtualisation = {
@@ -160,6 +163,13 @@ let user = "garrettleber"; in
     gitAndTools.gitFull
     inetutils
   ];
+
+  services.openvpn.servers = {
+    dw-cloud = { config  = '' config /home/${user}/Sync/dw-cloud.ovpn ''; updateResolvConf = true; };
+    internal-cloud = { config  = '' config /home/${user}/Sync/internal-cloud.ovpn ''; updateResolvConf = true; };
+    vpn-us = { config  = '' config /home/${user}/Sync/vpn-us.ovpn ''; updateResolvConf = true; };
+    personal = { config  = '' config /home/${user}/Sync/personal.ovpn ''; updateResolvConf = true; };
+  };
 
   system.stateVersion = "23.11"; # Don't change this
 }
