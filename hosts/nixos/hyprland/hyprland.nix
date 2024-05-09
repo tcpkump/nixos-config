@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let user = "garrettleber"; in
 {
@@ -27,6 +27,41 @@ let user = "garrettleber"; in
     xresources.properties = {
       "Xcursor.size" = 16;
       "Xft.dpi" = 172;
+    };
+
+    services.kanshi = {
+      enable = true;
+      profiles = {
+
+        docked = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+              scale = 1.25;
+            }
+            {
+              criteria = "DP-2";
+              status = "enable";
+              scale = 1.5;
+            }
+          ];
+          exec = [
+            "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"2 DP-2\""
+            "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"3 DP-2\""
+            "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"4 DP-2\""
+            "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"5 DP-2\""
+          ];
+        };
+
+        undocked = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+            }
+          ];
+        };
+      };
     };
   };
 }
