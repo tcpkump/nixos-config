@@ -171,5 +171,11 @@ let user = "garrettleber"; in
     personal = { config  = '' config /home/${user}/Sync/personal.ovpn ''; updateResolvConf = true; };
   };
 
+  fileSystems."/mnt/shared" = {
+    device = "unraid.imkumpy.in:/mnt/user/primary";
+    fsType = "nfs";
+    # options = [ "x-systemd.automount" "noauto" "x.systemd.idle-timeout=600" ];
+  };
+
   system.stateVersion = "23.11"; # Don't change this
 }

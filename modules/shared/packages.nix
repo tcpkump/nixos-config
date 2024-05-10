@@ -8,6 +8,9 @@ with pkgs; [
   kubectl
   google-cloud-sdk
   ansible
+  go-jira
+
+  pass-wayland
 
   saml2aws
   k9s

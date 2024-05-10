@@ -1,0 +1,110 @@
+endpoint: https://openvpn.atlassian.net
+user: garrett.leber@openvpn.net
+password-source: pass
+password-name: openvpn.atlassian.net/garrett.leber
+
+custom-commands:
+  - name: mine
+    help: display issues assigned to me
+    script: |-
+      if [ -n "$JIRA_PROJECT" ]; then
+          # if `project: ...` configured just list the issues for current project
+          {{jira}} list --template table --query "resolution = unresolved and assignee=currentuser() and project = $JIRA_PROJECT ORDER BY priority asc, created"
+      else
+          # otherwise list issues for all project
+          {{jira}} list --template table --query "resolution = unresolved and assignee=currentuser() AND status NOT IN('Ready For Review', 'Won\'t Do', Done, Obsolete, Resolved, 'ON HOLD', 'On Hold') ORDER BY priority asc, created"
+      fi
+  - name: minebyage
+    help: display issues assigned to me
+    script: |-
+      if [ -n "$JIRA_PROJECT" ]; then
+          # if `project: ...` configured just list the issues for current project
+          {{jira}} list --template table --query "resolution = unresolved and assignee=currentuser() and project = $JIRA_PROJECT ORDER BY created"
+      else
+          # otherwise list issues for all project
+          {{jira}} list --template table --query "resolution = unresolved and assignee=currentuser() AND status NOT IN('Ready For Review', 'Won\'t Do', Done, Obsolete, Resolved, 'ON HOLD', 'On Hold') ORDER BY created"
+      fi
+  - name: daily
+    help: output wiki syntax for daily report
+    script: |
+      if [ -n "$JIRA_PROJECT" ]; then
+          echo "$JIRA_PROJECT:"
+          echo ""
+          jira ls -q "assignee=currentuser()
+              AND project = $JIRA_PROJECT
+              AND status NOT IN ('To Do', 'Work Requested', 'Backlog', 'Selected for Development')
+              AND updated >-1d ORDER BY project,resolutiondate,priority" \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+      else
+          echo "Licensing:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND project = Licensing
+              AND status NOT IN ("Work Requested", "Backlog", "Selected for Development")
+              AND updated >-1d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+          echo "IaaS:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND (project = Infrastructure OR project = "Data Warehouse")
+              AND status NOT IN ("To Do", "Backlog")
+              AND updated >-1d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+          echo "Policy Violations:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND project = "Policy Violations"
+              AND status NOT IN ("To Do")
+              AND updated >-1d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+      fi
+  - name: weekly
+    help: output wiki syntax for weekly report
+    script: |
+      if [ -n "$JIRA_PROJECT" ]; then
+          echo "$JIRA_PROJECT:"
+          echo ""
+          jira ls -q "assignee=currentuser()
+              AND project = $JIRA_PROJECT
+              AND status NOT IN ('To Do', 'Work Requested', 'Backlog', 'Selected for Development')
+              AND updated >-7d ORDER BY project,resolutiondate,priority" \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+      else
+          echo "Licensing:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND project = Licensing
+              AND status NOT IN ("Work Requested", "Backlog", "Selected for Development")
+              AND updated >-7d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+          echo "DataOps:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND (project = Infrastructure OR project = "Data Warehouse" OR project = "DW Internal")
+              AND status NOT IN ("To Do", "Backlog")
+              AND updated >-7d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+          echo "Policy Violations:"
+          echo ""
+          jira ls -q 'assignee=currentuser()
+              AND project = "Policy Violations"
+              AND status NOT IN ("To Do")
+              AND updated >-7d ORDER BY project,resolutiondate,priority' \
+            -t report \
+            -f 'summary,resolutiondate,issuetype,priority,status,created,reporter,assignee,resolved,resolution'
+      fi
+  - name: open
+    help: list of tickets that i've opened, with the most recent first
+    script: jira ls -q 'reporter=currentuser() AND status NOT IN (Done) ORDER BY created DESC' -t table -l {{ options.limit }}
+    options:
+      - name: limit
+        short: l
+        default: 25
+

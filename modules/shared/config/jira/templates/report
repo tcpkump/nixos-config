@@ -1,0 +1,2 @@
+{{ range .issues }}{{ "* " | append "[" | append .key | append "](" | append "https://openvpn.atlassian.net/browse/" | append .key | append ")" | append " " | append .fields.summary | append " - " | append .fields.status.name }}
+{{ end }}
