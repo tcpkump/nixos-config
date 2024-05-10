@@ -86,6 +86,9 @@ in {
       userEmail = "garrett.leber@openvpn.net";
       lfs.enable = true;
       difftastic.enable = true;
+      extraConfig = {
+        core.editor = "nvim";
+      };
     };
 
     direnv = {
