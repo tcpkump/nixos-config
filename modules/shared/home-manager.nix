@@ -88,6 +88,7 @@ in {
       difftastic.enable = true;
       extraConfig = {
         core.editor = "nvim";
+        push.autoSetupRemote = true;
       };
     };
 
