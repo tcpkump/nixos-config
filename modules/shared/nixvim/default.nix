@@ -11,6 +11,7 @@
     ./colorscheme.nix
     ./git.nix
     ./helm.nix
+    ./hover.nix
     ./indent-blankline.nix
     ./keymaps.nix
     ./lsp.nix

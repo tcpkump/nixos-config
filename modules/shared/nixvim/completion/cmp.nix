@@ -16,12 +16,15 @@
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
         window = {
           completion = {
-            border = "single";
+            border = "rounded";
+            winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None";
             scrollbar = false;
             scrolloff = 2;
           };
           documentation = {
-            border = "single";
+            border = "rounded";
+            winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None";
+            max_height = 20;
           };
         };
         sources = [

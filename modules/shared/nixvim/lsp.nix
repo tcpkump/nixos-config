@@ -32,7 +32,6 @@
       lspBuf = {
         "gd" = "definition";
         "gt" = "type_definition";
-        "K" = "hover";
         "<leader>ca" = "code_action";
         "<leader>rn" = "rename";
       };
