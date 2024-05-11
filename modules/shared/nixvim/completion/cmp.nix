@@ -15,10 +15,14 @@
         matching.disallow_partial_fuzzy_matching = false;
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
         window = {
-          completion.scrollbar = false;
-          completion.scrolloff = 2;
-          completion = {border = "solid";};
-          documentation = {border = "solid";};
+          completion = {
+            border = "single";
+            scrollbar = false;
+            scrolloff = 2;
+          };
+          documentation = {
+            border = "single";
+          };
         };
         sources = [
           {name = "copilot";}
@@ -40,7 +44,6 @@
           "<C-e>" = "cmp.mapping.abort()";
           "<C-b>" = "cmp.mapping.scroll_docs(-4)";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<C-Space>" = "cmp.mapping.complete()";
           "<CR>" = "cmp.mapping.confirm({ select = false })";
           "<S-CR>" = "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
         };
