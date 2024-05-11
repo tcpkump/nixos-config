@@ -58,6 +58,7 @@ let user = "garrettleber"; in
           outputs = [
             {
               criteria = "eDP-1";
+              scale = 1.0;
             }
           ];
         };
