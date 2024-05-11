@@ -25,7 +25,7 @@
     keymaps = {
       silent = true;
       diagnostic = {
-        "<leader>do" = "open_float";
+        "<leader>cd" = "open_float";
         "[d" = "goto_prev";
         "]d" = "goto_next";
       };

@@ -49,26 +49,8 @@
     }
 
     {
-      key = "<S-H>";
-      action = "<cmd>bprev<CR>";
-      mode = "n";
-    }
-
-    {
-      key = "<S-L>";
-      action = "<cmd>bnext<CR>";
-      mode = "n";
-    }
-
-    {
       key = "<C-s>";
       action = "<cmd>w<CR>";
-    }
-
-    {
-      key = "<leader>cd";
-      action = "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>";
-      mode = "n";
     }
   ];
 }
