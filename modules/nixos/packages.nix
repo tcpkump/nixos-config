@@ -9,6 +9,11 @@ shared-packages ++ [
   # Security and authentication
   yubikey-agent
   libfido2
+  pass-wayland
+
+  # wayland screenshots
+  grim
+  slurp
 
   # App and package management
   gnumake

@@ -10,8 +10,6 @@ with pkgs; [
   ansible
   go-jira
 
-  pass-wayland
-
   saml2aws
   k9s
 
@@ -19,10 +17,6 @@ with pkgs; [
   podman-compose
 
   tmux-sessionizer
-
-  # wayland screenshots
-  grim
-  slurp
 
   # archives
   zip
