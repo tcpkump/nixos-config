@@ -15,6 +15,7 @@
     ./indent-blankline.nix
     ./keymaps.nix
     ./lsp.nix
+    ./lualine.nix
     ./neo-tree.nix
     ./none-ls.nix
     ./options.nix
