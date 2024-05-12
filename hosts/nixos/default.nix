@@ -164,12 +164,7 @@ let user = "garrettleber"; in
     inetutils
   ];
 
-  services.openvpn.servers = {
-    dw-cloud = { config  = '' config /home/${user}/Sync/dw-cloud.ovpn ''; updateResolvConf = true; };
-    internal-cloud = { config  = '' config /home/${user}/Sync/internal-cloud.ovpn ''; updateResolvConf = true; };
-    vpn-us = { config  = '' config /home/${user}/Sync/vpn-us.ovpn ''; updateResolvConf = true; };
-    personal = { config  = '' config /home/${user}/Sync/personal.ovpn ''; updateResolvConf = true; };
-  };
+  programs.openvpn3.enable = true;
 
   fileSystems."/mnt/shared" = {
     device = "unraid.imkumpy.in:/mnt/user/primary";

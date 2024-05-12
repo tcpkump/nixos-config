@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# Get the name of any running OpenVPN service
-running_service=$(systemctl list-units --type=service --state=running | grep 'openvpn-' | awk '{print $1}' | sed 's/.service//')
+# List all active OpenVPN 3 sessions
+sessions=$(openvpn3 sessions-list | grep "Config name" | awk -F/ '{print $NF}' | awk '{sub(/\.ovpn.*$/, ""); print $1}')
 
-if [ -z "$running_service" ]; then
+if [ -z "$sessions" ]; then
     echo "VPN: OFF"
 else
-    # Extract the name part after 'openvpn-'
-    service_name=${running_service#openvpn-}
-    echo "VPN: $service_name"
+    echo "VPN: $sessions"
 fi
 

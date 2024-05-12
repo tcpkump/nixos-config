@@ -27,41 +27,41 @@ in
 
   # programs = shared-programs // {};
   programs.zsh.initExtra = ''
-    vpn () {
-        local cmd=$1
-        local service_name=$2
-
-        # Function to list VPN services
-        list_vpn_services () {
-            systemctl list-units --type=service --all | grep -o 'openvpn-[^ ]*.service'
-        }
-
-        case $cmd in
-            list)
-                echo "Available VPN services:"
-                list_vpn_services
-                ;;
+    function vpn() {
+        case "$1" in
             connect)
-                if ! systemctl list-units --type=service --all | grep -q "$service_name"; then
-                    echo "Unknown VPN service: $service_name"
-                    return 1
+                if [[ -n "$2" ]]; then
+                    # Disconnect all sessions first
+                    vpn disconnect
+                    
+                    # Start a new VPN session
+                    echo "Connecting to $2..."
+                    openvpn3 session-start --config ~/Sync/"$2.ovpn"
+                else
+                    echo "Please specify a VPN profile name to connect."
                 fi
-                echo "Connecting to $service_name..."
-                sudo systemctl stop 'openvpn-*.service'
-                sudo systemctl start "$service_name"
                 ;;
+
             disconnect)
-                echo "Disconnecting all VPN services..."
-                sudo systemctl stop 'openvpn-*.service'
+                echo "Disconnecting all VPN sessions..."
+                # Fetch the session paths and disconnect each session
+                local sessions=$(openvpn3 sessions-list | grep -oP 'Path: \K/net/openvpn/v3/sessions/\S+')
+                for session in $sessions; do
+                    openvpn3 session-manage --session-path="$session" --disconnect
+                done
                 ;;
+
+            list)
+                echo "Available VPN profiles:"
+                ls ~/Sync/*.ovpn | sed 's|^.*/||; s|\.ovpn$||'
+                ;;
+
             *)
-                echo "Unknown command: $cmd"
-                echo "Available commands: list, connect, disconnect"
-                return 1
+                echo "Usage: vpn [connect <name> | disconnect | list]"
                 ;;
         esac
     }
-''
-;
+  ''
+  ;
 
 }
