@@ -8,6 +8,7 @@
     ./motion/harpoon.nix
     ./motion/surround.nix
 
+    ./chatgpt.nix
     ./colorscheme.nix
     ./git.nix
     ./helm.nix
