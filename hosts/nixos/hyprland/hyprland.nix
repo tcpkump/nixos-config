@@ -20,7 +20,49 @@ let user = "garrettleber"; in
       extraConfig = builtins.readFile ./hyprland.conf;
     };
     programs.wofi.enable = true;
-    services.dunst.enable = true;
+    services.dunst = {
+      enable = true;
+      settings = {
+        global = {
+          follow = "mouse";
+          geometry = "300x30-5+60";
+          frame_width = 1;
+          frame_color = "#4287f5";
+          sort = "yes";
+          font = "Fira Mono 10";
+          line_height = 0;
+          markup = "full";
+          format = "<b>%a</b>\n<i>%s</i>\n%b";
+          alignment = "center";
+          vertical_alignment = "center";
+          word_wrap = "no";
+          ellipsize = "middle";
+          ignore_newline = "no";
+          stack_duplicates = true;
+          hide_duplicate_count = true;
+          browser = "firefox -new-tab";
+          corner_radius = 15;
+
+          mouse_left_click = "close_current";
+          mouse_right_click = "do_action";
+          mouse_middle_click = "do_action";
+        };
+        urgency_normal = {
+          background = "#202632";
+          foreground = "#ffffff";
+          timeout = 5;
+        };
+        urgency_critical = {
+          background = "#ffffff";
+          foreground = "#db0101";
+          timeout = 0;
+        };
+        play_sound = {
+          summary = "*";
+          script = "~/.config/dunst_custom/alert.sh";
+        };
+      };
+    };
     services.easyeffects.enable = true;
 
     # set cursor size and dpi for 4k monitor

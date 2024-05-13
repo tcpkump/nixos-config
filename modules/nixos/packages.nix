@@ -38,4 +38,7 @@ shared-packages ++ [
   # for wayland/hyprland screensharing
   xdg-desktop-portal-hyprland
   xdg-desktop-portal-gtk
+
+  # for testing dunst notification
+  libnotify
 ]
