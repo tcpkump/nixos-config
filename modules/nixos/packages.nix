@@ -14,6 +14,7 @@ shared-packages ++ [
   # wayland screenshots
   grim
   slurp
+  wl-clipboard
 
   # App and package management
   gnumake
