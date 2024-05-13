@@ -52,5 +52,15 @@
       key = "<C-s>";
       action = "<cmd>w<CR>";
     }
+    
+    {
+      key = "<leader>ti";
+      action = "<cmd>lcd %:p:h<CR><cmd>!terraform init -upgrade -no-color<CR>";
+    }
+
+    {
+      key = "<leader>tp";
+      action = "<cmd>lcd %:p:h<CR><cmd>!terraform plan -no-color<CR>";
+    }
   ];
 }
