@@ -51,7 +51,7 @@ let
               "format" = "{volume}% {icon} {format_source}";
               "format-bluetooth" = "{volume}% {icon}";
               "format-muted" = "";
-              "format-source" = " {volume}% ";
+              "format-source" = "  {volume}% ";
               "format-source-muted" = " ";
               "format-icons" = {
                   "headphone" = "";
