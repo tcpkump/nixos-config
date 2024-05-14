@@ -19,6 +19,9 @@
 
     swapfile = false;
     undofile = true;
+
+    splitright = true;
+    splitbelow = true;
   };
 }
 

@@ -1,42 +1,76 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [
-      ChatGPT-nvim
-      nui-nvim
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "gp";
+        src = pkgs.fetchFromGitHub {
+          owner = "Robitx";
+          repo = "gp.nvim";
+          rev = "52938ffbd47b5e06d0f9b7c8b146f26d6021fbac";
+          hash = "sha256-nowrrgdRxxJ81xsmuUYKsbPNLTGVKO6KbSpU0U98lWE=";
+        };
+      })
     ];
 
     extraConfigLua = ''
-      require('chatgpt').setup({
-        openai_params = {
-          model = "gpt-4o"
-        }
-      })
+      require('gp').setup()
     '';
 
     keymaps = [
       {
         key = "<leader>ac";
-        action = "<cmd>ChatGPT<cr>";
+        action = "<cmd>GpChatToggle vsplit<cr>";
         options = {
           desc = "ChatGPT";
         };
       }
 
       {
-        mode = [ "n" "v" ];
-        key = "<leader>ai";
-        action = "<cmd>ChatGPTEditWithInstruction<cr>";
+        key = "<leader>au";
+        action = "<cmd>GpChatStop<cr>";
         options = {
-          desc = "ChatGPT with instruction";
+          desc = "ChatGPT Stop";
         };
       }
 
       {
-        mode = [ "n" "v" ];
-        key = "<leader>ax";
-        action = "<cmd>ChatGPTRun explain_code<CR>";
+        key = "<leader>an";
+        action = "<cmd>GpChatNew<cr>";
         options = {
-          desc = "ChatGPT explain code";
+          desc = "ChatGPT New Chat";
+        };
+      }
+
+      {
+        key = "<leader>ad";
+        action = "<cmd>GpChatDelete<cr>";
+        options = {
+          desc = "ChatGPT Delete Chat";
+        };
+      }
+
+      {
+        key = "<leader>aa";
+        action = "<cmd>GpChatRespond<cr>";
+        options = {
+          desc = "ChatGPT Send Message";
+        };
+      }
+
+      {
+        key = "<leader>af";
+        action = "<cmd>GpChatFinder<cr>";
+        options = {
+          desc = "ChatGPT Find Chat";
+        };
+      }
+
+      {
+        mode = "v";
+        key = "<leader>ap";
+        action = "<cmd>GpChatPaste<cr>";
+        options = {
+          desc = "ChatGPT Paste Selection to Chat";
         };
       }
     ];
