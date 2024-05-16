@@ -1,5 +1,6 @@
 {
   programs.nixvim.opts = {
+    background = "";
     updatetime = 100;
 
     spell = false;
