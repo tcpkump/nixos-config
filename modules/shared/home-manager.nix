@@ -40,19 +40,7 @@ in {
           forwardAgent = true;
         };
 
-        "awscosts nagios2" = dag.entryBefore ["*.openvpn.in"] {
-          hostname = "%h.prod.aws.openvpn.in";
-          user = "garrett_leber";
-          forwardAgent = true;
-          proxyJump = "bastion";
-        };
-        "awscosts.lab" = dag.entryBefore ["*.openvpn.in"] {
-          hostname = "%h.aws.openvpn.in";
-          user = "garrett_leber";
-          forwardAgent = true;
-          proxyJump = "bastion";
-        };
-        "airflow.shared-dev" = dag.entryBefore ["*.openvpn.in"] {
+        "awscosts.lab airflow.shared-dev awscosts nagios2" = dag.entryBefore ["*.openvpn.in"] {
           hostname = "%h.aws.openvpn.in";
           user = "garrett_leber";
           forwardAgent = true;
