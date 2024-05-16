@@ -7,7 +7,6 @@
     number = true;
     relativenumber = true;
 
-    clipboard = "unnamedplus";
     expandtab = true;
     shiftwidth = 2;
     tabstop = 2;
