@@ -104,6 +104,11 @@ in {
           };
           option_as_alt = "OnlyLeft";
         };
+        cursor = {
+          style.blinking = "On";
+          blink_interval = 750;
+          blink_timeout = 0;
+        };
       };
     };
 
