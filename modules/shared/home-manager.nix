@@ -77,6 +77,7 @@ in {
       extraConfig = {
         core.editor = "nvim";
         push.autoSetupRemote = true;
+        init.defaultBranch = "main";
       };
       ignores = [ ".envrc" ];
     };
