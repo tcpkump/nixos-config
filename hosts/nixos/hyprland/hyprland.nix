@@ -72,38 +72,39 @@ let user = "garrettleber"; in
 
     services.kanshi = {
       enable = true;
-      profiles = {
-
-        docked = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "enable";
-              scale = 1.25;
-            }
+      settings = [
+        {
+          profile.name = "docked";
+          profile.outputs = [
             {
               criteria = "DP-2";
-              status = "enable";
               scale = 1.5;
+              status = "enable";
+            }
+            {
+              criteria = "eDP-1";
+              scale = 1.25;
+              status = "enable";
             }
           ];
-          exec = [
+          profile.exec = [
+            "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"1 DP-2\""
             "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"2 DP-2\""
             "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"3 DP-2\""
             "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"4 DP-2\""
             "${pkgs.hyprland}/bin/hyprctl dispatch moveworkspacetomonitor \"5 DP-2\""
           ];
-        };
-
-        undocked = {
-          outputs = [
+        }
+        {
+          profile.name = "undocked";
+          profile.outputs = [
             {
               criteria = "eDP-1";
               scale = 1.0;
             }
           ];
-        };
-      };
+        }
+      ];
     };
   };
 }
