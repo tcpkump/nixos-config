@@ -3,6 +3,7 @@
 let user = "garrettleber"; in
 {
   imports = [
+    ./swappy/swappy.nix
     ./swaylock/swaylock.nix
     ./waybar/waybar.nix
   ];
