@@ -18,8 +18,9 @@ let
           height = 41; # Waybar height (to be removed for auto height)
           spacing = 0; # Gaps between modules (0px)
           modules-left = ["hyprland/workspaces"];
-          modules-center = ["clock"];
+          modules-center = ["clock#indiana"];
           modules-right = [
+            "clock#utc"
             "custom/vpn"
             "network"
             "pulseaudio"
@@ -40,12 +41,17 @@ let
           tray = {
               "spacing" = 10;
           };
-          clock = {
+          "clock#indiana" = {
               "timezone" = "America/Indiana/Indianapolis";
               "format" = "{:%a %b %e %I:%M:%S %p}";
               "interval" = 1;
               "tooltip-format" = "<tt><small>{calendar}</small></tt>";
               "format-alt" = "{:%Y-%m-%d}";
+          };
+          "clock#utc" = {
+              "timezone" = "UTC";
+              "format" = "{:%Y-%m-%dT%H:%M:%SZ}";
+              "interval" = 1;
           };
           pulseaudio = {
               "format" = "{volume}% {icon} {format_source}";
@@ -96,9 +102,10 @@ let
               "format-alt" = "{ifname} = {ipaddr}/{cidr}";
           };
           "custom/vpn" = {
+              "exec" = "~/.config/waybar/check_openvpn.sh";
               "format" = "{}";
               "interval" = 10;
-              "exec" = "~/.config/waybar/check_openvpn.sh";
+              "tooltip" = false;
           };
         };
       };
