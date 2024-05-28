@@ -40,7 +40,7 @@ in {
           forwardAgent = true;
         };
 
-        "awscosts.lab airflow.shared-dev awscosts nagios2" = dag.entryBefore ["*.openvpn.in"] {
+        "nagios2" = dag.entryBefore ["*.openvpn.in"] {
           hostname = "%h.aws.openvpn.in";
           user = "garrett_leber";
           forwardAgent = true;

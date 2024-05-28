@@ -9,6 +9,7 @@ with pkgs; [
   google-cloud-sdk
   ansible
   go-jira
+  maven
 
   saml2aws
   k9s
