@@ -21,8 +21,8 @@
     ./none-ls.nix
     ./options.nix
     ./python-venv.nix
+    ./smart-splits.nix
     ./telescope.nix
-    ./tmux-navigator.nix
     ./treesitter.nix
     ./trouble.nix
     ./welcome.nix

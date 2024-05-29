@@ -93,15 +93,7 @@ in {
     wezterm = {
       enable = true;
       enableZshIntegration = true;
-      extraConfig = ''
-        return {
-          -- enable_wayland = false, -- wezterm on wayland can have issues, sometimes needed
-          -- color_scheme = "Kanagawa Dragon (Gogh)"
-          color_scheme = "Kanagawa (Gogh)",
-          font = wezterm.font("FiraCode Nerd Font Mono"),
-          font_size = 12.0,
-        }
-      '';
+      extraConfig = builtins.readFile ./config/wezterm/wezterm.lua;
     };
 
     alacritty = {
