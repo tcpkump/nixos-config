@@ -9,6 +9,20 @@ config.animation_fps = 30
 config.tab_bar_at_bottom = true
 config.default_cursor_style = "BlinkingBlock"
 
+-- Change mouse scroll amount
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByLine(-3),
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByLine(3),
+  },
+}
+
 wezterm.on('update-right-status', function(window, pane)
   window:set_right_status(window:active_workspace())
 end)
