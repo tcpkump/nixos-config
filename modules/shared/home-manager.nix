@@ -90,6 +90,20 @@ in {
     awscli.enable = true;
     go.enable = true;
 
+    wezterm = {
+      enable = true;
+      enableZshIntegration = true;
+      extraConfig = ''
+        return {
+          -- enable_wayland = false, -- wezterm on wayland can have issues, sometimes needed
+          -- color_scheme = "Kanagawa Dragon (Gogh)"
+          color_scheme = "Kanagawa (Gogh)",
+          font = wezterm.font("FiraCode Nerd Font Mono"),
+          font_size = 12.0,
+        }
+      '';
+    };
+
     alacritty = {
       enable = true;
       settings = {
@@ -163,7 +177,7 @@ in {
       };
 
       envExtra = ''
-        export ZSH_TMUX_AUTOSTART=true
+        # export ZSH_TMUX_AUTOSTART=true
         export LANG=en_US.UTF-8
         unset LC_ALL
       '';
