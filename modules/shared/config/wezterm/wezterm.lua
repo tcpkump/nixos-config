@@ -2,12 +2,18 @@ local w = require('wezterm')
 local act = wezterm.action
 local config = {}
 
-config.color_scheme = "Kanagawa (Gogh)"
-config.font = wezterm.font("FiraCode Nerd Font Mono")
-config.font_size = 12.0
 config.animation_fps = 30
-config.tab_bar_at_bottom = true
+config.color_scheme = "Kanagawa (Gogh)"
 config.default_cursor_style = "BlinkingBlock"
+config.font_size = 12.0
+config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.hide_mouse_cursor_when_typing = false
+config.tab_bar_at_bottom = true
+
+config.inactive_pane_hsb = {
+  saturation = 0.7,
+  brightness = 0.5,
+}
 
 -- Change mouse scroll amount
 config.mouse_bindings = {
